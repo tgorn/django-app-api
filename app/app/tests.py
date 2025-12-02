@@ -1,10 +1,11 @@
 """"
-Sample tests  
+Sample tests
 """
 
 from django.test import SimpleTestCase
 
 from app import calc
+
 
 class CalcTests(SimpleTestCase):
     """Tests for calc.py"""
@@ -20,3 +21,5 @@ class CalcTests(SimpleTestCase):
         res = calc.subtract(10, 8)
 
         self.assertEqual(res, 2)
+
+
