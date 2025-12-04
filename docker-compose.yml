@@ -2,6 +2,7 @@ services:
   app:
     build:
       context: . 
+      dockerfile: docker/Dockerfile.django-app-api
       args:
         - DEV=true
     ports:
@@ -9,7 +10,9 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c " python manage.py wait_for_db &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
       - DB_NAME=dev_db
@@ -18,12 +21,16 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:13-alpine
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.postgres
     volumes:
       - dev_db_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=dev_db
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
+#    command: >
+#      sh -c "\cp /postres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
 volumes:
   dev_db_data: 
