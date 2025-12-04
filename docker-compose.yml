@@ -32,5 +32,7 @@ services:
       - POSTGRES_PASSWORD=changeme
 #    command: >
 #      sh -c "\cp /postres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
+#    command: >
+#      sh -c "\cp /postres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
 volumes:
   dev_db_data: 
