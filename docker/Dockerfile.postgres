@@ -4,10 +4,13 @@ FROM postgres:13-alpine
 LABEL mainteiner="tgorn@tgorn.eu"
 
 COPY ./postgres /postgres
-COPY ./postgres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
+#COPY ./postgres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
 
 WORKDIR /postgres
 
 EXPOSE 5432
 
-RUN cp /postgres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf 
+#RUN cp /postgres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf && rm -fr /postgres && rmdir /postgres
+#RUN cp /postgres/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf && rm -fr /postgres && rmdir /postgres
+#run sh -c 'su - postgres -c "/usr/local/bin/pg_ctl reload -d /var/lib/postgresql/data"'
+# run sh -c 'sed -i s|128.0.0.1/32|172.16.0.0/12|| /var/lib/postgresql/data/pg_hba.conf'
